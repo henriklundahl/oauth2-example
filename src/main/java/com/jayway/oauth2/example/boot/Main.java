@@ -29,6 +29,7 @@ public class Main {
 		if (args.length != 2) {
 			System.out
 					.println("Usage:\n\n<program> googleClientId googleClientSecret");
+			return;
 		}
 		String googleClientId = args[0];
 		String googleClientSecret = args[1];
