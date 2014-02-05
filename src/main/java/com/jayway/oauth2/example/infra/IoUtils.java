@@ -1,4 +1,4 @@
-package com.jayway.oauth2.example.infra.rest;
+package com.jayway.oauth2.example.infra;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

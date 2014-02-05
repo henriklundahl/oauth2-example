@@ -1,6 +1,6 @@
 package com.jayway.oauth2.example.infra.rest.api;
 
-import static com.jayway.oauth2.example.infra.rest.IoUtils.readTextResource;
+import static com.jayway.oauth2.example.infra.IoUtils.readTextResource;
 
 import java.io.IOException;
 
