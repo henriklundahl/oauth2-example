@@ -39,11 +39,14 @@ public class AuthResource {
 	@GET
 	@Path("login")
 	@Produces(MediaType.TEXT_HTML)
-	public String login(@Context HttpServletRequest request) {
+	public String login(@Context HttpServletRequest request,
+			@QueryParam("error") String error) {
 		String nonce = new BigInteger(100, random)
 				.toString(Character.MAX_RADIX);
 		request.getSession().setAttribute("nonce", nonce);
-		return loginPage.replace("{{NONCE}}", nonce);
+		error = error != null ? "Error: " + error : "";
+		return loginPage.replace("{{ERROR_MESSAGE}}", error).replace(
+				"{{NONCE}}", nonce);
 	}
 
 	@GET
@@ -62,8 +65,8 @@ public class AuthResource {
 		String nonce = (String) session.getAttribute("nonce");
 		if (code == null || error != null || nonce == null
 				|| !nonce.equals(state)) {
-			// TODO Add error message?
-			return Response.seeOther(URI.create("/login")).build();
+			String uri = "/login" + (error != null ? "?error=" + error : "");
+			return Response.seeOther(URI.create(uri)).build();
 		} else {
 			String token = googleOauthApiClient.retrieveToken(code);
 			session.setAttribute("token", token);
