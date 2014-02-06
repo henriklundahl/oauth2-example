@@ -3,13 +3,16 @@ package com.jayway.oauth2.example.infra.rest.api;
 import static com.jayway.oauth2.example.infra.IoUtils.readTextResource;
 
 import java.io.IOException;
+import java.net.URI;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.GET;
+import javax.ws.rs.NotAuthorizedException;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
 import com.jayway.oauth2.example.infra.rest.client.GooglePlusApiClient;
@@ -27,11 +30,16 @@ public class RootResource {
 
 	@GET
 	@Produces(MediaType.TEXT_HTML)
-	public String root(@Context HttpServletRequest request,
+	public Response root(@Context HttpServletRequest request,
 			@Context UriInfo uriInfo) {
 		String token = (String) request.getSession(false).getAttribute("token");
-		String givenName = googlePlusApiClient.retrieveUserInfo(token).get(
-				"given_name");
-		return indexPage.replace("{{GIVEN_NAME}}", givenName);
+		try {
+			String givenName = googlePlusApiClient.retrieveUserInfo(token).get(
+					"given_name");
+			return Response.ok(indexPage.replace("{{GIVEN_NAME}}", givenName))
+					.build();
+		} catch (NotAuthorizedException e) {
+			return Response.seeOther(URI.create("/login")).build();
+		}
 	}
 }
