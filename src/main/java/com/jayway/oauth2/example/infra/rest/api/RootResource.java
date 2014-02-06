@@ -30,8 +30,8 @@ public class RootResource {
 	public String root(@Context HttpServletRequest request,
 			@Context UriInfo uriInfo) {
 		String token = (String) request.getSession(false).getAttribute("token");
-		String userName = googlePlusApiClient.retrieveUserInfo(token).get(
-				"name");
-		return indexPage.replace("{{USER_NAME}}", userName);
+		String givenName = googlePlusApiClient.retrieveUserInfo(token).get(
+				"given_name");
+		return indexPage.replace("{{GIVEN_NAME}}", givenName);
 	}
 }

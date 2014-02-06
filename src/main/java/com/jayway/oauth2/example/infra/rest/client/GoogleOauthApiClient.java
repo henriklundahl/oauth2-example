@@ -27,7 +27,6 @@ public class GoogleOauthApiClient {
 	}
 
 	public String authUrl() {
-		// TODO Add state with nonce?
 		return "https://accounts.google.com/o/oauth2/auth"
 				+ "?redirect_uri=https%3A%2F%2Flocalhost%3A8443%2Foauth2%2Fcallback"
 				+ "&response_type=code" //
