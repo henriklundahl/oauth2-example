@@ -21,3 +21,5 @@ Get `client_id` and `client_secret` by setting up a project at <https://cloud.go
 2. Click the sign in button.
 3. Approve the permissions requested by the app.
 
+You can revoke your approval here: <https://security.google.com/settings/security/permissions>.
+

@@ -22,7 +22,6 @@ public class GooglePlusApiClient {
 
 	@SuppressWarnings("unchecked")
 	public Map<String, String> retrieveUserInfo(String token) {
-		// TODO Handle 401.
 		Map<String, String> response = userInfoTarget.request(APPLICATION_JSON)
 				.header("Authorization", "Bearer " + token).get(Map.class);
 		return response;
