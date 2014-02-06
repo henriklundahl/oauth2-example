@@ -32,6 +32,7 @@ public class GoogleOauthApiClient {
 				+ "?redirect_uri=https%3A%2F%2Flocalhost%3A8443%2Foauth2%2Fcallback"
 				+ "&response_type=code" //
 				+ "&client_id=" + clientId //
+				+ "&state={{NONCE}}"
 				// + "&access_type=offline" //
 				// + "&approval_prompt=force" //
 				+ "&scope=email+profile";
@@ -51,5 +52,4 @@ public class GoogleOauthApiClient {
 
 		return response.get("access_token");
 	}
-
 }
